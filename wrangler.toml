@@ -1,0 +1,67 @@
+name = "test"
+# 默认为 Production 环境
+main = "dist/app.mjs"
+minify = true
+compatibility_date = "2024-10-20"
+compatibility_flags = ["nodejs_compat"]
+assets = { directory = "public" }
+
+# 如果服务部署在 Cloudflare Workers，并且想要存储到 R2 请添加如下配置
+# [[r2_buckets]]
+# binding = "R2" # 绑定名称不可改变
+# bucket_name = "my-r2-bucket" # 请修改为你的 R2 存储桶名称
+
+[vars]
+# 超时时间(ms)
+TIMEOUT = 60000
+# 最大请求体大小(字节)，默认 100MB
+MAX_BODY_SIZE = 104857600
+# 日志级别
+# LOG_LEVEL=http
+
+# 最大请求体大小(字节)，默认 100MB
+# 在部署到 Vercel Functions 时，受 Vercel Functions 的限制，通过请求体上传时最大不超过 4.5 MB（通过 url 上传则不受限制），详见 https://vercel.com/docs/storage/vercel-blob/server-upload
+# MAX_BODY_SIZE=104857600
+
+# 授权密钥（Bearer 认证）。可选，如果设置，则所有请求都需要携带此密钥
+# AUTH_TOKEN = ''
+
+# 文件名前缀
+# BUCKET_PREFIX=
+
+# 存储类型，可选值：s3, r2, vercel-blob
+# 如果服务部署在 Cloudflare Workers，并且想要存储到 R2 ，则可以设置为 'r2'，此时需要修改 wrangler.toml 中的 r2_buckets 相关配置；
+# 如果服务部署在其他平台，想要存储到 R2，请使用 R2 的 S3 兼容接口，参考 https://developers.cloudflare.com/r2/api/s3/api，此时设置为 's3'
+# STORAGE_TYPE=r2
+
+# S3 基础 URL
+# S3_BASE_URL=
+
+# S3 区域
+# S3_REGION=
+
+# S3 存储桶名称
+# S3_BUCKET_NAME=
+
+# S3 访问密钥 ID
+# S3_ACCESS_KEY_ID=
+
+# S3 秘密访问密钥
+# S3_SECRET_ACCESS_KEY=
+
+# S3 端点
+# S3_ENDPOINT=
+
+# Vercel Blob 令牌，参考 https://vercel.com/docs/storage/vercel-blob
+# VERCEL_BLOB_TOKEN=
+
+
+[env.dev]
+# Development 环境配置
+main = "src/app.ts"
+minify = false
+assets = { directory = "public" }
+
+[observability]
+enabled = true
+head_sampling_rate = 1 # optional. default = 1.
